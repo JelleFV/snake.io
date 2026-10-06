@@ -5,7 +5,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 
-
 // Main class
 class GFG {
 
@@ -37,17 +36,13 @@ class GFG {
             GamePanel game = new GamePanel();
             frame.setContentPane(game);
             frame.revalidate();
+            frame.repaint();
+            game.StartGameThread();
         });
 
         button.setFocusable(false);
 
     
-
-
-
-
-
-
         
     }
 }
