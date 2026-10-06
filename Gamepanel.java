@@ -1,8 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 
-public class Gamepanel extends JPanel {
+public class GamePanel extends JPanel {
 
     public final int Width = 1280;
     final int Height = 720;
@@ -12,12 +12,6 @@ public class Gamepanel extends JPanel {
         this.setSize(1280, 720);
         this.setBackground(new Color(0, 0, 0));
         this.setDoubleBuffered(true);
-
-
-
-
-
-        
     }
 
 

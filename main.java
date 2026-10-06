@@ -1,5 +1,10 @@
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
+
 
 // Main class
 class GFG {
@@ -7,16 +12,40 @@ class GFG {
     // Main driver method
     public static void main(String[] args)
     {
-        // Creating start menu
+        // Setup frame
         JFrame frame = new JFrame();
-        JButton button = new JButton(" Start snake.io");
-        button.setBounds(640, 360, 200, 50);
-        frame.add(button);
-        frame.setSize(GamePanel.Width, GamePanel.Height);
+        frame.setSize(1280, 720);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        // Creates button
+        JButton button = new JButton(" Start snake.io");
+        int widthButton = 250;
+        int heightButton= 100;
+        button.setBounds((1280 - widthButton) / 2, (720 - heightButton) / 2, widthButton, heightButton);
+        button.setFont(new Font("SansSerif", Font.BOLD, 25));
+        button.setBackground(Color.lightGray);
+        button.setBorder(BorderFactory.createEtchedBorder());
+
+
+
+        frame.add(button);
+        button.addActionListener(e -> {
+            GamePanel game = new GamePanel();
+            frame.setContentPane(game);
+            frame.revalidate();
+        });
+
+        button.setFocusable(false);
+
+    
+
+
+
+
 
 
         
