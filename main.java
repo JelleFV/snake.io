@@ -27,7 +27,7 @@ class GFG {
         // adding button in JFrame
         frame.add(button);
 
-        // 400 width and 500 height
+        // 500 width and 600 height
         frame.setSize(500, 600);
 
         // using no layout managers
@@ -35,23 +35,6 @@ class GFG {
 
         // making the frame visible
         frame.setVisible(true);
-
-        setLayout(new BorderLayout());
-        //////CREATE SWING COMPONENTS////////////
-        //OUTPUT TEXT AREA
-        uneditTextArea.setEditable(false);
-
-        //INPUT TEXT AREA
-        editTextArea.setBackground(Color.BLUE);
-        editTextArea.setForeground(Color.WHITE)
-
-        //SET CONTENT PANE
-        Container c = getContentPane();
-
-        //ADD COMPONENTS TO CONTENT PANE        
-        c.add(uneditTextArea, BorderLayout.CENTER);
-        c.add(editTextArea, BorderLayout.SOUTH);
-        c.add(inputButton, BorderLayout.WEST);
-
+        frame.setResizable(false);
     }
 }
