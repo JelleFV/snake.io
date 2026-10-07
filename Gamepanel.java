@@ -15,8 +15,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
-
-
     Thread gameThread;
 
     public void StartGameThread(){
@@ -29,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void run(){
         while (gameThread != null){
             System.out.println("dit is de gameloop");
-
 
         }
 
