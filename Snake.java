@@ -59,6 +59,10 @@ public class Snake {
             return body.get(0)[1];
         }
 
+    public int getRadius(){
+        return Snake.RADIUS;
+    }
+
     public void draw(Graphics2D g, double cameraX, double cameraY) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(new Color(34, 139, 34)); 

@@ -1,5 +1,6 @@
 import java.awt.*;
 
+
 public class Food {
     int radius = 11;
     double x;
@@ -16,7 +17,6 @@ public class Food {
         g.fillOval((int)(x - cameraX) - radius, (int) (y- cameraY) - radius, radius, radius);
 
     }
-
 
 
 }
