@@ -14,12 +14,14 @@ public class GamePanel extends JPanel implements Runnable {
     public final int WORLD_HEIGHT = 4000;
 
 
-    private double cameraX = WORLD_WIDTH / 2.0 - Width / 2.0;
-    private double cameraY = WORLD_HEIGHT / 2.0 - Height / 2.0;
+    private volatile double cameraX = WORLD_WIDTH / 2.0 - Width / 2.0;
+    private volatile double cameraY = WORLD_HEIGHT / 2.0 - Height / 2.0;
 
     private final Snake snake;
     private volatile int mouseX = 640;
     private volatile int mouseY = 360;
+
+    private final Food testFood = new Food(WORLD_WIDTH / 2.0 + 100, WORLD_HEIGHT / 2.0);
 
     Thread gameThread;
 
@@ -109,7 +111,9 @@ public class GamePanel extends JPanel implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawGrid((Graphics2D) g);
+        testFood.draw((Graphics2D)g, cameraX, cameraY);
         snake.draw((Graphics2D) g, cameraX, cameraY);
     }
     
+   
 }
