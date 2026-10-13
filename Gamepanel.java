@@ -86,8 +86,8 @@ public class GamePanel extends JPanel implements Runnable {
             double worldMouseY = mouseY + cameraY;
 
             snake.update(worldMouseX, worldMouseY, worldMouseX != LastMouseX || worldMouseY != LastMouseY);
-            repaint();
             updateCamera();
+            repaint();
 
             LastMouseX = worldMouseX;
             LastMouseY = worldMouseY;
