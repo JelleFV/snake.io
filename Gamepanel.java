@@ -133,6 +133,9 @@ public class GamePanel extends JPanel implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawGrid((Graphics2D) g);
+        for (Food pellet : pellets){
+            pellet.draw((Graphics2D)g, cameraX, cameraY);
+        }
         snake.draw((Graphics2D) g, cameraX, cameraY);
     }
     
