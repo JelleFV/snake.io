@@ -10,6 +10,8 @@ public class Food {
 
     public Food(double x, double y){
 
+        
+
     } 
     
     public draw(Graphics2D g, cameraX, ){

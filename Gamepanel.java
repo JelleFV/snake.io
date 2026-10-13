@@ -58,11 +58,11 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     private void updateCamera() {
-        cameraX = snake.getX() - Width / 2.0;
-        cameraY = snake.getY() - Height / 2.0;
+        cameraX = snake.getX() - getWidth() / 2.0;
+        cameraY = snake.getY() - getHeight()/ 2.0;
 
-        cameraX = Math.max(0, Math.min(cameraX, WORLD_WIDTH - Width));
-        cameraY = Math.max(0, Math.min(cameraY, WORLD_HEIGHT - Height));
+        cameraX = Math.max(0, Math.min(cameraX, WORLD_WIDTH - getWidth()));
+        cameraY = Math.max(0, Math.min(cameraY, WORLD_HEIGHT - getHeight()));
     }
 
 
@@ -111,12 +111,5 @@ public class GamePanel extends JPanel implements Runnable {
         drawGrid((Graphics2D) g);
         snake.draw((Graphics2D) g, cameraX, cameraY);
     }
-
-    private void setExtendedState(int MAXIMIZED_BOTH) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-
-
     
 }
