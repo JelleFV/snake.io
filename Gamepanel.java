@@ -35,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         for (int i=0; i < 200; i++){
             spawnFood();
-            System.out.println(pellets.size());
         }
 
         // mouse input
@@ -119,6 +118,7 @@ public class GamePanel extends JPanel implements Runnable {
             for(Food pellet : pellets ){
                 if (pellet.isTouching(snake.getX(), snake.getY(), snake.getRadius())) {
                     pellets.remove(pellet);
+                    snake.grow();
                     spawnFood();
                 }
             }

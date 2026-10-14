@@ -63,6 +63,14 @@ public class Snake {
         return Snake.RADIUS;
     }
 
+
+    public void grow(){
+        double [] last = body.get(body.size() - 1 );
+        body.add(new double []{last[0], last[1]});
+    }
+
+
+
     public void draw(Graphics2D g, double cameraX, double cameraY) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(new Color(34, 139, 34)); 
