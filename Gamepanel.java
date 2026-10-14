@@ -77,6 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
         cameraY = Math.max(0, Math.min(cameraY, WORLD_HEIGHT - getHeight()));
     }
 
+    // spawn one pellet of food
     private void spawnFood() {
         int maxX = GamePanel.WORLD_WIDTH;
         int maxY = GamePanel.WORLD_HEIGHT;
@@ -87,6 +88,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         pellets.add(new Food(ranX, ranY));
     }
+
+    
+   
 
 
 
@@ -110,6 +114,16 @@ public class GamePanel extends JPanel implements Runnable {
             double worldMouseY = mouseY + cameraY;
 
             snake.update(worldMouseX, worldMouseY, worldMouseX != LastMouseX || worldMouseY != LastMouseY);
+
+            // Food disappearing mechanism
+            for(Food pellet : pellets ){
+                if (pellet.isTouching(snake.getX(), snake.getY(), snake.getRadius())) {
+                    pellets.remove(pellet);
+                    spawnFood();
+                }
+            }
+
+
             updateCamera();
             repaint();
 

@@ -18,5 +18,12 @@ public class Food {
 
     }
 
+    public boolean isTouching(double otherX, double otherY, int otherRadius){
+        double dx = otherX - this.x;
+        double dy = otherY - this.y;
+        double distance = Math.hypot(dx, dy);
+        return distance < (radius + otherRadius);
+    }
+
 
 }
