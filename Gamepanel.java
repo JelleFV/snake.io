@@ -84,8 +84,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         int ranX = (int) (Math.random() * (maxX - marg)) + marg;
         int ranY = (int) (Math.random() * (maxY - marg)) + marg;
+        int radius = (int) (Math.random() * 10) + 9;
 
-        pellets.add(new Food(ranX, ranY));
+        pellets.add(new Food(ranX, ranY, radius));
     }
 
     
