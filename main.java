@@ -3,6 +3,8 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 
 // Main class
@@ -26,11 +28,12 @@ class Main {
         int widthButton = 250;
         int heightButton= 100;
         //button.setBounds((1280 - widthButton) / 2, (720 - heightButton) / 2, widthButton, heightButton);
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         button.setBounds(
-              (frame.getWidth() - widthButton) / 2,
-              (frame.getHeight() - heightButton) / 2,
-              widthButton,
-              heightButton
+            (screen.width - widthButton) / 2,
+            (screen.height - heightButton) / 2,
+            widthButton,
+            heightButton
         );
         button.setFont(new Font("SansSerif", Font.BOLD, 25));
         button.setBackground(Color.lightGray);
