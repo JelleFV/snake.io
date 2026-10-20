@@ -24,12 +24,19 @@ public class GamePanel extends JPanel implements Runnable {
 
     CopyOnWriteArrayList<Food> pellets = new CopyOnWriteArrayList<>();
 
+    private final Leaderboard leaderboard = new Leaderboard();
+
     Thread gameThread;
 
     public GamePanel() {
         setPreferredSize(new Dimension(Width, Height));
         this.setBackground(new Color(0, 0, 0));
         this.setDoubleBuffered(true);
+
+        setLayout(null);
+        leaderboard.setBounds(Width - 220, 10, 200, 150);
+        add(leaderboard);
+        leaderboard.addPoints("Player", 0);
 
         snake = new Snake(WORLD_WIDTH / 2, WORLD_HEIGHT / 2);
 
@@ -120,6 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
                 if (pellet.isTouching(snake.getX(), snake.getY(), snake.getRadius())) {
                     pellets.remove(pellet);
                     snake.grow();
+                    leaderboard.addPoints("Player", 1);
                     spawnFood();
                 }
             }
