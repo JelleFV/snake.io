@@ -112,15 +112,13 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
         final long frameTime = 16; // milliseconds per frame
-        double LastMouseX = mouseX + cameraX;
-        double LastMouseY = mouseY + cameraY;
 
         while (gameThread != null) {
             long start = System.currentTimeMillis();
             double worldMouseX = mouseX + cameraX;
             double worldMouseY = mouseY + cameraY;
 
-            snake.update(worldMouseX, worldMouseY, worldMouseX != LastMouseX || worldMouseY != LastMouseY);
+            
 
             // Food disappearing mechanism
             for(Food pellet : pellets ){
@@ -134,12 +132,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 
             updateCamera();
+            snake.update(worldMouseX, worldMouseY);
             repaint();
 
-            LastMouseX = worldMouseX;
-            LastMouseY = worldMouseY;
-
-            
 
             long elapsed = System.currentTimeMillis() - start;
             if (elapsed < frameTime) {
