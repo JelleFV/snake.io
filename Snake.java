@@ -9,7 +9,6 @@ public class Snake {
     private static final int SEGMENTS = 3;
     private static final double SPEED = 3.0;          // pixels per frame
     private static final double SEGMENT_GAP = 12;     // distance between segments
-    private static final int RADIUS = 12;
     private static final double BASETURN_RATE = 0.07;
     private static final double MINTURN_RATE = 0.03;
     private static final int CAP_LENGTH = 60;
@@ -90,7 +89,9 @@ public class Snake {
         }
 
     public int getRadius(){
-        return Snake.RADIUS;
+        int baseRadius = 12;
+        int sizeIncrease = body.size() / 15;
+        return Math.min(baseRadius + sizeIncrease, 100);
     }
 
 
@@ -104,15 +105,17 @@ public class Snake {
 
     public void draw(Graphics2D g, double cameraX, double cameraY) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int currentRadius = getRadius();
         // Draw from tail to head so the head ends up on top
         for (int i = body.size() - 1; i >= 0; i--) {
             double[] seg = body.get(i);
             
             if (i == 0) {
                 // Head: green circle, then the face image on top
-                int x = (int) (seg[0] - cameraX) - RADIUS;
-                int y = (int) (seg[1] - cameraY) - RADIUS;
-                int diameter = RADIUS * 2;
+                int x = (int) (seg[0] - cameraX) - currentRadius;
+                int y = (int) (seg[1] - cameraY) - currentRadius;
+                int diameter = currentRadius * 2;
             
 
             g.setColor(new Color(34, 139, 34));
@@ -123,7 +126,7 @@ public class Snake {
             }
             } else {
                 // Body segments: smaller green circles
-                int r = RADIUS - 4;
+                int r = currentRadius - 4;
                 g.setColor(new Color(34, 139, 34));
                 g.fillOval(
                     (int) (seg[0] - cameraX) - r,
