@@ -124,8 +124,8 @@ public class GamePanel extends JPanel implements Runnable {
             for(Food pellet : pellets ){
                 if (pellet.isTouching(snake.getX(), snake.getY(), snake.getRadius())) {
                     pellets.remove(pellet);
-                    snake.grow();
-                    leaderboard.addPoints("Player", 1);
+                    snake.grow(pellet.segmentValue());
+                    leaderboard.addPoints("Player", pellet.pointValue());
                     spawnFood();
                 }
             }

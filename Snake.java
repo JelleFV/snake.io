@@ -10,7 +10,9 @@ public class Snake {
     private static final double SPEED = 3.0;          // pixels per frame
     private static final double SEGMENT_GAP = 12;     // distance between segments
     private static final int RADIUS = 12;
-    private static final double TURN_RATE = 0.07;
+    private static final double BASETURN_RATE = 0.07;
+    private static final double MINTURN_RATE = 0.03;
+    private static final int CAP_LENGTH = 60;
 
     //body [ [500, 300],
     // [ ... ]]
@@ -29,12 +31,14 @@ public class Snake {
             System.err.println("Could not load face_derp.png: " + e.getMessage());
         }
     }
-
+    //movement
     public void update(double targetX, double targetY) {
         double[] head = body.get(0);
 
         double dx = targetX - head[0];
         double dy = targetY - head[1];
+        double t = Math.min(1.0,(body.size() - SEGMENTS) / (double) (CAP_LENGTH - SEGMENTS));
+        double turnRate = BASETURN_RATE  - (BASETURN_RATE - MINTURN_RATE) * Math.pow(t, 1);
 
         if (Math.hypot(dx, dy) > 5) {
             double targetAngle = Math.atan2(dy, dx);
@@ -48,16 +52,19 @@ public class Snake {
                 diff += 2*Math.PI; 
             }
             
-            if(Math.abs(diff) < TURN_RATE){
+            if(Math.abs(diff) < turnRate){
                 angle = targetAngle;
             } else {
-                angle += TURN_RATE * Math.signum(diff);
+                angle += turnRate * Math.signum(diff);
             }
 
         }
 
         head[0] += Math.cos(angle) * SPEED;
         head[1] += Math.sin(angle) * SPEED;
+
+
+        
 
         // Each segment follows the one in front of it
         for (int i = 1; i < body.size(); i++) {
@@ -87,9 +94,11 @@ public class Snake {
     }
 
 
-    public void grow(){
-        double [] last = body.get(body.size() - 1 );
-        body.add(new double []{last[0], last[1]});
+    public void grow(int amount){
+        for (int i = 0; i < amount; i++) {
+            double [] last = body.get(body.size() - 1 );
+            body.add(new double []{last[0], last[1]});
+        }
     }
 
 
