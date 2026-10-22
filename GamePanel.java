@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final Snake snake;
     private volatile int mouseX = 640;
     private volatile int mouseY = 360;
+    private static final int FOOD_COUNT = 200;
 
     CopyOnWriteArrayList<Food> pellets = new CopyOnWriteArrayList<>();
 
@@ -32,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(Width, Height));
         this.setBackground(new Color(0, 0, 0));
         this.setDoubleBuffered(true);
+        setFocusable(true);
+        requestFocusInWindow();
 
         setLayout(null);
         leaderboard.setBounds(Width - 220, 10, 200, 150);
@@ -40,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         snake = new Snake(WORLD_WIDTH / 2, WORLD_HEIGHT / 2);
 
-        for (int i=0; i < 200; i++){
+        for (int i=0; i < FOOD_COUNT; i++){
             spawnFood();
         }
 
@@ -58,6 +61,30 @@ public class GamePanel extends JPanel implements Runnable {
                 mouseY = e.getY();
             }
         });
+
+
+        InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke("SPACE"), "boostOn");
+        inputMap.put(KeyStroke.getKeyStroke("released SPACE"), "boostOff");
+
+        actionMap.put("boostOn", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                snake.setBoosting(true);
+            }
+        });
+
+        actionMap.put("boostOff", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                snake.setBoosting(false);
+            }
+        });
+
+      
+
     }
 
 
@@ -118,7 +145,12 @@ public class GamePanel extends JPanel implements Runnable {
             double worldMouseX = mouseX + cameraX;
             double worldMouseY = mouseY + cameraY;
 
-            
+            Food droppedFood = snake.updateAndDrop(worldMouseX, worldMouseY);
+            if (droppedFood != null) {
+                pellets.add(droppedFood);
+
+                leaderboard.addPoints("Player", -droppedFood.pointValue());
+            }
 
             // Food disappearing mechanism
             for(Food pellet : pellets ){
@@ -130,9 +162,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
 
-
             updateCamera();
-            snake.update(worldMouseX, worldMouseY);
             repaint();
 
 
