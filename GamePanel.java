@@ -28,6 +28,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     private final Leaderboard leaderboard = new Leaderboard();
 
+    CopyOnWriteArrayList<Food> pellets = new CopyOnWriteArrayList<>();
+
+    private final Leaderboard leaderboard = new Leaderboard();
+
     Thread gameThread;
 
     public GamePanel(String playerName) {
@@ -43,9 +47,14 @@ public class GamePanel extends JPanel implements Runnable {
         add(leaderboard);
         leaderboard.addPoints(this.playerName, 0);
 
+        setLayout(null);
+        leaderboard.setBounds(Width - 220, 10, 200, 150);
+        add(leaderboard);
+        leaderboard.addPoints("Player", 0);
+
         snake = new Snake(WORLD_WIDTH / 2, WORLD_HEIGHT / 2);
 
-        for (int i=0; i < FOOD_COUNT; i++){
+        for (int i=0; i < 200; i++){
             spawnFood();
         }
 
@@ -147,9 +156,21 @@ public class GamePanel extends JPanel implements Runnable {
             double worldMouseX = mouseX + cameraX;
             double worldMouseY = mouseY + cameraY;
 
-            Food droppedFood = snake.updateAndDrop(worldMouseX, worldMouseY);
-            if (droppedFood != null) {
-                pellets.add(droppedFood);
+            snake.update(worldMouseX, worldMouseY, worldMouseX != LastMouseX || worldMouseY != LastMouseY);
+
+            // Food disappearing mechanism
+            for(Food pellet : pellets ){
+                if (pellet.isTouching(snake.getX(), snake.getY(), snake.getRadius())) {
+                    pellets.remove(pellet);
+                    snake.grow();
+                    leaderboard.addPoints("Player", 1);
+                    spawnFood();
+                }
+            }
+
+
+            updateCamera();
+            repaint();
 
                 leaderboard.addPoints(playerName, -droppedFood.pointValue());
             }
