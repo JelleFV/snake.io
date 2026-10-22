@@ -3,6 +3,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
@@ -51,8 +52,12 @@ class Main {
             textWidth,
             textHeight
         );
-
         textField.setFont(new Font("SansSerif", Font.BOLD, 25));
+
+        JLabel usernamelabel = new JLabel("Username");
+        usernamelabel.setBounds(frame.getWidth()/2 - 100 , frame.getHeight()/2 - 155 ,250,40 );
+        usernamelabel.setFont(new Font("SansSerif",Font.BOLD,25));
+        frame.add(usernamelabel);
 
         frame.add(textField);
         frame.revalidate();
@@ -60,14 +65,12 @@ class Main {
 
 
 
-
+        // handlles button and username input
         button.addActionListener(e -> {
             String username = textField.getText().trim();
             if(username.isEmpty()) {
                 username = "Player";
             }
-
-
 
 
             GamePanel game = new GamePanel(username);
